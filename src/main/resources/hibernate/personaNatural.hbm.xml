@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="pe.gob.bnp.person.persona.domain.entity">
+	<class name="Persona">
+        <id name="id" 						column="PERSONA_ID">
+            <generator class="sequence">
+            	<param name="sequence">MAESTRAS.SEQ_PERSONAS_ID</param>
+            </generator>
+        </id>
+        <component name="documentoIdentidad"	class="pe.gob.bnp.person.persona.domain.entity.DocumentoIdentidad">
+        	<property name="tipoDocumento" 		column="TIPO_DOCUMENTO_ID"/>
+        	<property name="numeroDocumento" 	column="NRO_DOCUMENTO"/>
+        </component>        
+        <component name="auditoria"	class="pe.gob.bnp.person.common.domain.entity.EntidadBase">
+        	<property name="estado" 				column="ESTADO"/>
+        	<property name="fechaRegistro" 			column="FECHA_REGISTRO"/>
+        	<property name="idUsuarioRegistro" 		column="USUARIO_REGISTRO"/>
+        	<property name="fechaActualizacion" 	column="FECHA_MODIFICACION"/>
+        	<property name="idUsuarioActualizacion" column="USUARIO_MODIFICACION"/>
+        </component>		
+        <union-subclass name="pe.gob.bnp.person.personanatural.domain.entity.PersonaNatural" table="TBL_PERSONAS">
+	        <component name="domicilio"	class="pe.gob.bnp.person.persona.domain.entity.Domicilio">
+	        	<property name="codDepartamento" 	column="UBG_DEPARTAMENTO"/>
+	        	<property name="codProvincia" 		column="UBG_PROVINCIA"/>
+	        	<property name="codDistrito" 		column="UBG_DISTRITO"/>
+	        	<property name="departamento" 		column="NOM_DEPARTAMENTO"/>
+	        	<property name="provincia" 			column="NOM_PROVINCIA"/>
+	        	<property name="distrito" 			column="NOM_DISTRITO"/>
+	        	<property name="direccion" 			column="DIRECCION"/>
+	        </component>	
+	        <property name="nombres" 			column="NOMBRES" />
+	        <property name="primerApellido" 	column="AP_PATERNO" />
+	        <property name="segundoApellido" 	column="AP_MATERNO" />
+			<property name="correo" 			column="CORREO"/>        
+	        <property name="fechaNacimiento" 	column="FECHA_NACIMIENTO"/>
+	        <property name="sexo" 				column="SEXO" />
+	        <property name="telefonoFijo" 		column="TELF_FIJO" />
+	        <property name="telefonoMovil" 		column="TELF_MOVIL" />
+	        <property name="validadoxReniec" 	column="FLAG_VALIDADO_RENIEC" />
+        </union-subclass>
+    </class> 
+</hibernate-mapping>
